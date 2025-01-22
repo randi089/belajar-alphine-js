@@ -23,6 +23,10 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"
     ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
   </head>
   <body>
     <div class="container" x-data="game()">
@@ -30,16 +34,21 @@
 
       <div class="grid-container">
         <template x-for="card in cards">
-          <div
-            class="grid-card"
-            :class="'bg-' + (card.flipped ? card.color : 'gray') + '-500'"
-            @click="flipCard(card)"
-            x-show="!card.cleared"
-          ></div>
+          <div class="aspect-[4/3]">
+            <div
+              class="grid-card"
+              :class="['bg-' + (card.flipped ? card.color : 'gray') + '-500', card.animate]"
+              @click="flipCard(card)"
+              x-show="!card.cleared"
+            ></div>
+          </div>
         </template>
       </div>
     </div>
 
+    <audio src="sound/true.wav" class="benar"></audio>
+    <audio src="sound/false.wav" class="salah"></audio>
+    <audio src="sound/done.wav" class="done"></audio>
     <script src="js/script.js"></script>
   </body>
 </html>

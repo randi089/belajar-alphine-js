@@ -28,6 +28,14 @@ const game = () => {
       // buka tutup kartu
       card.flipped = !card.flipped;
 
+      // matikan audio
+      function stopSound() {
+        benar.pause();
+        benar.currentTime = 0;
+        salah.pause();
+        salah.currentTime = 0;
+      }
+
       //   cek ketika sudah ada 2 kartu yang terbuka, lalu cek warnanya sama atau tidak
       if (this.flippedCards.length === 2) {
         if (this.flippedCards[0].color === this.flippedCards[1].color) {
@@ -35,10 +43,9 @@ const game = () => {
           this.flippedCards.forEach(
             (card) => (card.animate = "animate__animated animate__flash")
           );
+          stopSound();
           benar.play();
           await delay();
-          benar.pause();
-          benar.currentTime = 0;
           this.flippedCards.forEach((card) => (card.cleared = true));
 
           // cek apakah kartu sudah hilang semua
@@ -53,10 +60,9 @@ const game = () => {
         this.flippedCards.forEach(
           (card) => (card.animate = "animate__animated animate__tada")
         );
+        stopSound();
         salah.play();
         await delay();
-        salah.pause();
-        salah.currentTime = 0;
         this.flippedCards.forEach((card) => (card.flipped = false));
 
         // hilangkan class animasinya
